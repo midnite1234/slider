@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slider da</title>
+    <style>
+
+        body {
+            background-color: rgb(78, 76, 76);
+            display: flex;
+        }
+
+        button {
+            position: absolute;
+            top: 150px;
+            width: 65px;
+            height: 70px;
+            font: 12pt Arial, Tahoma, sans-serif;
+            text-align: center;
+            background-color: gray;
+            border-radius: 20%;
+            
+        }
+        .left {
+            left: 5px;
+        }
+        .right {
+            right: 5px;
+        }
+        #ser {
+            width: 600px;
+            height: 500px;
+            background-size: cover;
+            margin: 0 auto;
+            border: solid 3px rgb(7, 112, 51);
+        }
+    </style>
+</head>
+<body>
+    <div id="ser"></div>
+    <button class="left" onclick="slider.left()">Left</button>
+    <button class="right" onclick="slider.right()">Right</button>
+
+    <script>
+        var slider = {
+            slides: ['./src/sl1.webp', './src/sl2.webp', './src/sl3.jpg'],
+            frame: 0,
+            set: function(image) {
+                document.getElementById("ser").style.backgroundImage = "url(" + image + ")";
+            },
+            init: function() {
+                this.set(this.slides[this.frame]);
+            },
+            left: function() {
+                this.frame--;
+                if (this.frame < 0) {
+                    this.frame = this.slides.length - 1;
+                }
+                this.set(this.slides[this.frame]);
+            },
+            right: function() {
+                this.frame++;
+                if (this.frame === this.slides.length) {
+                    this.frame = 0;
+                }
+                this.set(this.slides[this.frame]);
+            }
+        };
+
+        window.onload = function() {
+            slider.init();
+            setInterval(function() {
+                slider.right();
+            }, 5000);
+        };
+    </script>
+</body>
+</html>
